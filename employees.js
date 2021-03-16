@@ -9,17 +9,56 @@ const connection = mysql.createConnection({
     database: 'employees_db'
 });
 
-const employeeTracker = () => {
-    connection.query('SELECT what you would like to do', (err, res) => {
-        if (err) throw err;
-
-        console.log(res)
-        connection.end()
-    });
-}
 
 connection.connect((err)=>{
     if (err) throw err;
     console.log(`connected as id ${connection.threadId}\n`);
     employeeTracker();
 })
+
+const employeeTracker = () => {
+    inquirer
+    .prompt({
+        name: 'action',
+        type: 'rawlist',
+        message: 'Select what you would like to do:',
+        choices: [
+            'Add Department',
+            'Add Role',
+            'Add Employee',
+            'View all Employees',
+            'View all Departments',
+            // 'View all Employees by Department',
+            // 'View all Employees by Manager',
+            'View All Roles',
+            'Update Employee Role',
+            // 'Remove Employee',
+            
+            // 'Update Employee Manager',
+          
+            // 'Remove Role',
+        ],
+    })
+    .then((answer) => {
+        switch (answer.action) {
+            case 'View all employees':
+            employeeSearch();
+            break;
+
+            case 'View all employees':
+            employeeSearch();
+            break;
+
+            case 'View all employees':
+            employeeSearch();
+            break;
+
+            case 'View all employees':
+            employeeSearch();
+            break;
+
+
+                
+        }
+    })
+}
