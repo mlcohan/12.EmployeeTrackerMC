@@ -25,6 +25,11 @@ CREATE TABLE employees(
     PRIMARY KEY (id)
 );
 
+SELECT * FROM departments;
+SELECT * FROM roles;
+SELECT * FROM employees;
+
+
 SELECT name, title, salary
 FROM roles
 INNER JOIN departments ON roles.department_id = departments.id
