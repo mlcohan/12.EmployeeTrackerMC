@@ -32,7 +32,7 @@ SELECT * FROM departments;
 SELECT * FROM roles;
 SELECT * FROM employees;
 
-
+-- supposed to use JOIN
 SELECT name, title, salary
 FROM roles
 INNER JOIN departments ON roles.department_id = departments.id
