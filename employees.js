@@ -1,6 +1,7 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
+const { ETXTBSY } = require('node:constants');
 
 
 const connection = mysql.createConnection({
@@ -30,10 +31,8 @@ const employeeTracker = () => {
             'Add Role',
             'Add Employee',
             'View all Employees',
-            'View all Departments',
-            // 'View all Employees by Department',
-            // 'View all Employees by Manager',
-            'View All Roles',
+            'View all Employees by Department',
+            'View all Employees by Role',
             'Update Employee Role',
             // 'Remove Employee',
             
@@ -56,18 +55,21 @@ const employeeTracker = () => {
             addEmployee();
             break;
 
-            case 'View all employees':
+            case 'View all Employees':
             employeeSearch();
             break;
 
-            case 'View all employees':
-            employeeSearch();
+            case 'View all Employees by Department':
+            deptSearch();
             break;
 
-            case 'View all employees':
-            employeeSearch();
+            case 'View all Employees by Role':
+            roleSearch();
             break;
 
+            case 'Update Employee Role':
+            employeeUpdate();
+            break;
                 
         }
     })
@@ -171,4 +173,25 @@ function managerPick(){
     })
     return managerArray
 
+}
+
+function employeeSearch(){
+    connection.query('SELECT employees.first_name, employees.last_name, roles.title, roles.salary, departments.name, CONCAT(e.first_name, " ", e.last_name) AS manager FROM employees INNER JOIN roles ON roles.id = employees.role_id INNER JOIN departments ON departments.id = roles.department_id LEFT JOIN employees e ON employees.manager_id = e.id', (err, res)=>{
+        if (err) throw err;
+            employeeTracker()
+    })
+}
+
+function deptSearch(){
+    connection.query('SELECT employees.first_name, employees.last_name, roles.title, roles.salary, departments.name AS departments FROM employees JOIN roles ON roles.id = employees.role_id JOIN departments ON departments.id = roles.department_id ORDER BY employee.id', (err, res)=>{
+        if (err) throw err;
+            employeeTracker()
+    })
+}
+
+function roleSearch(){
+    connection.query('SELECT employees.first_name, employees.last_name, roles.title, AS title FROM employees JOIN roles ON roles.id = employees.role_id', (err, res)=>{
+        if (err) throw err;
+            employeeTracker()
+    })
 }
