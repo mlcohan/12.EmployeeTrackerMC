@@ -1,7 +1,7 @@
 const mysql = require('mysql');
 const inquirer = require('inquirer');
 const consoleTable = require('console.table');
-const { ETXTBSY } = require('node:constants');
+
 
 
 const connection = mysql.createConnection({
@@ -9,8 +9,8 @@ const connection = mysql.createConnection({
     port: 3306,
     user: 'root',
     // your password goes here
-    password:'',
-    database: 'employees_db'
+    password:'1qaw3edr',
+    database: 'employee_db'
 });
 
 
@@ -82,7 +82,7 @@ function addDepartment(){
         type: 'input',
         message: 'What department would you like to add?'
     }]).then((res)=>{
-        connection.query("INSERT INTO department SET ?"), {
+        connection.query("INSERT INTO departments SET ?"), {
             name: res.name
         }, (err) => {
             if(err) throw err;
@@ -103,7 +103,7 @@ function addRole(){
         message: 'What is the salary of this role?'  
     }
 ]).then((res)=>{
-        connection.query("INSERT INTO role SET ?"), {
+        connection.query("INSERT INTO roles SET ?"), {
             title: res.title,
             salary: res.salary
         }, (err) => {
@@ -139,7 +139,7 @@ function addEmployee(){
 ]).then((res)=>{
     const roleID = rolePick().indexOf(res.role) + 1;
     const managerID = rolePick().indexOf(res.manager) + 1;
-        connection.query("INSERT INTO employee SET ?"), {
+        connection.query("INSERT INTO employees SET ?"), {
             first_name: res.firstName,
             last_name: res.lastName,
             role_id: roleID,
@@ -153,7 +153,7 @@ function addEmployee(){
 
 const roleArray = []
 function rolePick(){
-    connection.query("SELECT * FROM role", (err, res)=>{
+    connection.query("SELECT * FROM roles", (err, res)=>{
         if (err) throw err;
         for (i=0; i<res.length; i++) {
             roleArray.push(res[i].title);
@@ -165,7 +165,7 @@ function rolePick(){
 
 const managerArray = []
 function managerPick(){
-    connection.query("SELECT * FROM role", (err, res)=>{
+    connection.query("SELECT * FROM roles", (err, res)=>{
         if (err) throw err;
         for (i=0; i<res.length; i++) {
             managerArray.push(res[i].first_name);
@@ -195,3 +195,7 @@ function roleSearch(){
             employeeTracker()
     })
 }
+
+// function employeeUpdate(){
+//     connection.query('SELECT employees.last_name, role.title FRO')
+// }
