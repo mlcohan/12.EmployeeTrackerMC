@@ -43,7 +43,7 @@ So that I can organize and plan my business
 
 https://drive.google.com/file/d/1Wb58iOrx4jMaP3gNAKWGVU2eWkx2nQ4x/view
 
-![image](https://user-images.githubusercontent.com/38632935/111885827-73200280-8987-11eb-9813-0d46520ef611.png)
+![Employee Tracker](EmployeeTracker.gif)
 
 
 
