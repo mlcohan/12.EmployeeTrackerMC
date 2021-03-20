@@ -202,22 +202,43 @@ function roleSearch(){
     })
 }
 
-// function deptSearch(){
-//     connection.query('SELECT employees.first_name, employees.last_name, departments.name AS departments FROM employees JOIN roles ON employees.role_id = roles.id JOIN departments ON roles.department_id = departments.id ORDER BY employees.id', (err, res)=>{
-//         if (err) throw err;
-//         console.table(res);
-//             employeeTracker()
-//     })
-// }
 
-// function roleSearch(){
-//     connection.query('SELECT employees.first_name, employees.last_name, roles.title, AS title FROM employees JOIN roles ON employees.role_id = roles.id', (err, res)=>{
-//         if (err) throw err;
-//         console.table(res);
-//             employeeTracker()
-//     })
-// }
+function employeeUpdate(){
+    connection.query('SELECT employees.last_name, roles.title FROM employees JOIN roles ON employees.role_id = roles.id', (err, res) =>{
+        if(err) throw err;
+        console.table(res)
+        inquirer.prompt([{
+            name: "lastName",
+            type: "input",
+            message:"What is the last name of the employee role you would like to update?"
 
-// function employeeUpdate(){
-//     connection.query('SELECT employees.last_name, role.title FRO')
-// }
+        },
+    // ])
+    //     .then((res)=>{
+    //         connection.query('SELECT * FROM roles', (err, res)=>{
+    //             if(err) throw err;
+    //             inquirer.prompt([
+                    {
+                        name: "role",
+                        type: "list",
+                        message: "What is the name of the role you wish to assign this employee?",
+                        choices: rolePick()
+                    }])
+                
+                    .then((res)=> {
+                        const roleid = rolePick().indexOf(res.role) + 1;
+                        connection.query('UPDATE employees SET WHERE ? ', {
+                        last_name: res.lastName
+                        },
+                        {
+                            role_id: roleid
+                        }, (err)=>{
+                            if(err) throw err;
+                            console.table(res)
+                            employeeTracker()
+                    //     })
+                    // })
+            })
+        })
+    })
+}
