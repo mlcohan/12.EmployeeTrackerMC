@@ -204,40 +204,33 @@ function roleSearch(){
 
 
 function employeeUpdate(){
-    connection.query('SELECT employees.last_name, roles.title FROM employees JOIN roles ON employees.role_id = roles.id', (err, res) =>{
+    connection.query('SELECT employees.id, last_name, title FROM employees JOIN roles ON employees.role_id = roles.id', (err, res) =>{
         if(err) throw err;
         console.table(res)
         inquirer.prompt([{
-            name: "lastName",
-            type: "input",
-            message:"What is the last name of the employee role you would like to update?"
+            name: "empID",
+            type: "number",
+            message:"What is the id of the employee role you would like to update?"
 
         },
-    // ])
-    //     .then((res)=>{
-    //         connection.query('SELECT * FROM roles', (err, res)=>{
-    //             if(err) throw err;
-    //             inquirer.prompt([
-                    {
-                        name: "role",
-                        type: "list",
-                        message: "What is the name of the role you wish to assign this employee?",
-                        choices: rolePick()
-                    }])
+        {
+            name: "role",
+            type: "list",
+            message: "What is the name of the role you wish to assign this employee?",
+            choices: rolePick()
+        }
+    ])
                 
-                    .then((res)=> {
-                        const roleid = rolePick().indexOf(res.role) + 1;
-                        connection.query('UPDATE employees SET WHERE ? ', {
-                        last_name: res.lastName
-                        },
-                        {
-                            role_id: roleid
-                        }, (err)=>{
+    .then((res)=> {
+        const roleid = rolePick().indexOf(res.role) + 1;
+        connection.query('UPDATE employees SET role_id = ? WHERE id = ? ', [
+                       roleid,
+                      res.empID
+        ], (err)=>{
                             if(err) throw err;
                             console.table(res)
                             employeeTracker()
-                    //     })
-                    // })
+           
             })
         })
     })
