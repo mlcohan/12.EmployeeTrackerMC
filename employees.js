@@ -34,11 +34,7 @@ const employeeTracker = () => {
             'View Departments',
             'View Roles',
             'Update Employee Role',
-            // 'Remove Employee',
-            
-            // 'Update Employee Manager',
-          
-            // 'Remove Role',
+            'Exit'
         ],
     })
     .then((answer) => {
@@ -70,6 +66,11 @@ const employeeTracker = () => {
             case 'Update Employee Role':
             employeeUpdate();
             break;
+
+            case 'Exit':
+            console.log("Exiting Program");
+            process.exit();
+        
                 
         }
     })
