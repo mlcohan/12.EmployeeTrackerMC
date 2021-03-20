@@ -21,7 +21,10 @@ This is a command-line application that allows user to add departments, add role
 2. Enter your personal mySQL password on line 12 in employees.js
 3. Install dependencies <br>
 ```
-      npm install 
+      npm install node
+      npm install mysql
+      npm install inquirer
+      npm install console.table
 ```
 4. Creat database on mySQL using employees.sql and sees.sql files
 5. Run app <br>
